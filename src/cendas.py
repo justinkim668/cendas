@@ -64,7 +64,7 @@ def states(string):
         if string.startswith(key):
             return state_dictionary[key][0]
 
-def state_column(data_frame: pd.DataFrame(), tractcode_column: str):
+def state_column():
     data_frame['State'] = data_frame[tractcode_column].apply(states)
     return data_frame
 

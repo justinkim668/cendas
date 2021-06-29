@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 # cendas - About
 cendas is a new pandas-based library optimized for analyzing data provided by the U.S. Census Bureau and other U.S. government agencies.  The word "cendas" is a portmanteau of the words "census" and "pandas."  I was motivated to develop this python library from my experiences doing research at the Internet Real-Time Lab at Columbia University with Prof. Henning Schulzrinne.  Throughout the course of my research, I worked a lot with broadband adoption data provided by the Federal Communications Commission (FCC) and demographics data provided by the U.S. Census Bureau.  I oftentimes found myself using the same blocks of code over and over again on these datasets.  As a result, I thought it would be a good idea to put some of this code I used into a python package for the purposes of increasing workflow efficiency.  I also figured I probably wasn't the only one who would find this useful.  Please keep in mind this is still a work in progress.  If you have any questions, please feel free to reach out to me at jtk2141@columbia.edu.
 
@@ -36,3 +37,7 @@ The oconus function takes a pandas dataframe and the column name of the column h
 cendas.geoid_to_tract(data_frame: pd.DataFrame(), geoid_column: str)
 ```
 The geoid_to_tract function takes a pandas dataframe and the column name of the column holding the geoid codes as arguments and creates a new "tractcode" column in the dataframe with the census tract codes.  Several datasets provided by U.S. government agencies have a "geoid" column where all values start with '1400000US' followed by a census tract code.  This function effectively extracts the census tract codes from the geoid values.  
+=======
+# cendas
+ Cendas is a new pandas-based framework optimized for analyzing data provided by the U.S. Census Bureau and other U.S. government agencies.
+>>>>>>> Stashed changes
