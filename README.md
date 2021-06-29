@@ -15,10 +15,24 @@ Download here: https://pypi.org/project/cendas/
 ```python
 cendas.state_column(data_frame: pd.DataFrame(), tractcode_column: str)
 ```
-The state_column function takes in a pandas dataframe and the column name of the column holding the census tract codes as arguments and creates a new "State" column in the dataframe populated with the U.S. state in which the census tract codes are located in.  The reason why I developed this function is because some datasets provided by some US government agencies only provide census tract codes with no reference to where exactly they are located.  
+The state_column function takes a pandas dataframe and the column name of the column holding the census tract codes as arguments and creates a new "State" column in the dataframe populated with the U.S. state in which the census tract codes are located in.  The reason why I developed this function is because some datasets provided by some US government agencies only provide census tract codes with no reference to where exactly they are located.  
 
 ```python
 cendas.state_abb_column(data_frame: pd.DataFrame(), tractcode_column: str)
 ```
-The state_column function takes in a pandas dataframe and the column name of the column holding the census tract codes as arguments and creates a new "State Abbreviation" column in the dataframe populated with the U.S. state initials in which the census tract codes are located in.  The reason why I developed this function is the same as the above function -- some datasets provided by some US government agencies only provide census tract codes with no reference to where exactly they are located.  
+The state_abb_column function takes a pandas dataframe and the column name of the column holding the census tract codes as arguments and creates a new "State Abbreviation" column in the dataframe populated with the U.S. state initials in which the census tract codes are located in.  The reason why I developed this function is the same as the above function -- some datasets provided by some US government agencies only provide census tract codes with no reference to where exactly they are located.  
 
+```python
+cendas.conus_only(data_frame: pd.DataFrame(), tractcode_column: str)
+```
+The conus_only function takes a pandas dataframe and the column name of the column holding the census tract codes as arguments and drops rows in the dataframe where the census tracts are outside of the continental U.S.  This function returns a dataframe the displays only the censustracts within the continental U.S.  The reason why this function was developed was because there's always going to be stark statistical discrepancies between areas within the continental U.S. and outside of the continental U.S., especially when it comes to infrastructure-related matters.  
+
+```python
+cendas.oconus(data_frame: pd.DataFrame(), tractcode_column: str)
+```
+The oconus function takes a pandas dataframe and the column name of the column holding the census tract codes as arguments and only retains rows in the dataframe where the census tracts are located outside of the continental U.S.  This basically does the opposite of the conus_only function.
+
+```python
+cendas.geoid_to_tract(data_frame: pd.DataFrame(), geoid_column: str)
+```
+The geoid_to_tract function takes a pandas dataframe and the column name of the column holding the geoid codes as arguments and creates a new "tractcode" column in the dataframe with the census tract codes.  Several datasets provided by U.S. government agencies have a "geoid" column where all values start with '1400000US' followed by a census tract code.  This function effectively extracts the census tract codes from the geoid values.  
