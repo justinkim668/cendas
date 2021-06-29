@@ -1,0 +1,6 @@
+setup.py
+src/cendas.py
+src/cendas.egg-info/PKG-INFO
+src/cendas.egg-info/SOURCES.txt
+src/cendas.egg-info/dependency_links.txt
+src/cendas.egg-info/top_level.txt
