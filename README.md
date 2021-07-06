@@ -9,7 +9,7 @@ Prerequisite knowledge: As cendas was developed to be inter-operable with pandas
 
 Please type in the following command into your command prompt.
 ```python
-pip install cendas
+ppip install cendas==0.0.2
 ```
 OR
 
