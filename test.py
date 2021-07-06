@@ -1,2 +1,0 @@
-import cendas
-import pandas

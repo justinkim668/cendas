@@ -57,24 +57,23 @@ state_dictionary = {'01': ['Alabama', 'AL'],
                     '54': ['West Virginia', 'WV'],
                     '55': ['Wisconsin', 'WI'],
                     '56': ['Wyoming', 'WY']}
+
 census_tracts_OCONUS = ['02','15','60','66','69','72','74','78']
 
-def states(string):
-    for key in state_dictionary:
-        if string.startswith(key):
-            return state_dictionary[key][0]
-
 def state_column(data_frame: pd.DataFrame(), tractcode_column: str):
+
+    def states(string):
+        for key in state_dictionary:
+            if string.startswith(key):
+                return state_dictionary[key][0]
+
+    def state_abbrev(string):
+        for key in state_dictionary:
+            if string.startswith(key):
+                return state_dictionary[key][1]
+
     data_frame['State'] = data_frame[tractcode_column].apply(states)
-    return data_frame
-
-def state_abbrev(string):
-    for key in state_dictionary:
-        if string.startswith(key):
-            return state_dictionary[key][1]
-
-def state_abb_column(data_frame: pd.DataFrame(), tractcode_column: str):
-    data_frame['State abbreviation'] = data_frame[tractcode_column].apply(state_abbrev)
+    data_frame['State Initials'] = data_frame[tractcode_column].apply(state_abbrev)
     return data_frame
 
 def conus_only(data_frame: pd.DataFrame(), tractcode_column: str):
@@ -91,3 +90,64 @@ def oconus(data_frame: pd.DataFrame(), tractcode_column: str):
 def geoid_to_tract(data_frame: pd.DataFrame(), geoid_column: str):
     data_frame['tractcode'] = data_frame[geoid_column].str.replace(r'^1400000US', '')
     return data_frame
+
+def block_to_tract(data_frame: pd.DataFrame(), block_code_column: str):
+
+    def tract(string):
+        if len(string) == 15:
+            return string[0:11]
+        else:
+            return string
+
+    data_frame['Tractcode'] = data_frame[block_code_column].apply(tract)
+    return data_frame
+
+def add_zero(data_frame: pd.DataFrame(),code_column: str):
+
+    def fill(string):
+        if len(string) == 15:
+            return string
+        elif len(string) == 11:
+            return string
+        elif len(string) == 14:
+            return string.zfill(15)
+        elif len(string) == 10:
+            return string.zfill(11)
+        else:
+            return string
+
+    data_frame[code_column] = data_frame[code_column].apply(fill)
+    return data_frame
+
+def read_csv(file_path: str):
+    column_names = []
+    data_frame = pd.DataFrame()
+    with open(file_path, 'r') as file:
+        data = file.readlines()[0].rstrip()
+        data_list = list(data.split(','))
+    for i in data_list:
+        if (('tract' in i.lower()) | ('block'in i.lower())):
+            column_names.append(i)
+    column_dict = {name: lambda x: str(x) for name in column_names}
+    data_frame = pd.read_csv(file_path, converters = column_dict)
+    return data_frame
+
+def read_multiple_csv(list: List):
+    data_frame_list = []
+    for i in list:
+        data_frame_list.append(read_csv(i))
+    return data_frame_list
+
+def merge(data_frame_list: list):
+    data_frame = pd.DataFrame()
+    if len(data_frame_list) == 2:
+        data_frame = pd.merge(data_frame_list[0],data_frame_list[1])
+        return data_frame
+    elif len(data_frame_list) > 2:
+        list2 = data_frame_list[2:len(data_frame_list)]
+        data_frame = pd.merge(data_frame_list[0],data_frame_list[1])
+        for i in list2:
+            data_frame = pd.merge(data_frame, i)
+        return data_frame
+    elif len(data_frame_list) < 2:
+        print('Error: You must merge at least 2 dataframes')
