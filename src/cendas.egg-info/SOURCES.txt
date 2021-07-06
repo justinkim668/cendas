@@ -3,7 +3,7 @@ LICENSE.txt
 MANIFEST.in
 README.md
 setup.py
-dist/cendas-0.0.2-py3-none-any.whl
+dist/cendas-0.0.3-py3-none-any.whl
 src/cendas.py
 src/cendas.egg-info/PKG-INFO
 src/cendas.egg-info/SOURCES.txt

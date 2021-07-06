@@ -132,7 +132,7 @@ def read_csv(file_path: str):
     data_frame = pd.read_csv(file_path, converters = column_dict)
     return data_frame
 
-def read_multiple_csv(list: List):
+def read_multiple_csv(list: list):
     data_frame_list = []
     for i in list:
         data_frame_list.append(read_csv(i))

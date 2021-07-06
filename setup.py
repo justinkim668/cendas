@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name = 'cendas',
-    version = '0.0.2',
+    version = '0.0.3',
     description = 'Cendas is a new pandas-based software library optimized for analyzing data provided by U.S. government agencies.',
     py_modules = ["cendas"],
     package_dir = {'': 'src'},
